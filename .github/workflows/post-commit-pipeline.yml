@@ -33,12 +33,15 @@ jobs:
         id: get_latest_tag
         run: |
           LATEST_TAG=$(git tag --sort=-v:refname | head -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="0.0.0"
+          fi
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
       - name: Determine version increment
         id: version_increment
         run: |
           LABELS="${{ steps.get_merged_pr.outputs.labels }}"
-          
           BUMP="none"
           if [[ "$LABELS" == *"major"* ]]; then
             BUMP="major"
@@ -52,14 +55,12 @@ jobs:
       - name: Calculate new version (Semantic Versioning)
         id: calculate_version
         run: |
-          if [ -z "$LATEST_TAG" ]; then
+          if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "0.0.0" ]; then
             VERSION="0.0.0"
           else
             VERSION=${LATEST_TAG#v}
           fi
-          
           IFS='.' read -r major minor patch <<< "$VERSION"
-          
           BUMP=${{ steps.version_increment.outputs.bump }}
           if [ "$BUMP" = "major" ]; then
             major=$((major + 1))
@@ -71,8 +72,8 @@ jobs:
           elif [ "$BUMP" = "patch" ]; then
             patch=$((patch + 1))
           fi
-          
           NEW_VERSION="$major.$minor.$patch"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Build & Test
         run: ./gradlew clean build
@@ -84,10 +85,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "v${{ env.NEW_VERSION }}"
-          release_name: "v${{ env.NEW_VERSION }}"
+          tag_name: "${{ env.NEW_VERSION }}"
+          release_name: "${{ env.NEW_VERSION }}"
           draft: false
           prerelease: false
+
+      - name: Find built JAR
+        if: steps.version_increment.outputs.bump != 'none'
+        id: find_jar
+        run: |
+          FILE=$(find build/libs -name "*.jar" | head -n 1)
+          if [ -z "$FILE" ]; then
+            exit 1
+          fi
+          echo "jar_file=$FILE" >> $GITHUB_OUTPUT
 
       - name: Upload JAR to Release
         if: steps.version_increment.outputs.bump != 'none'
@@ -96,6 +107,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "build/libs/${{ github.event.repository.name }}-${{ env.NEW_VERSION }}.jar"
+          asset_path: ${{ steps.find_jar.outputs.jar_file }}
           asset_name: "${{ github.event.repository.name }}-${{ env.NEW_VERSION }}.jar"
           asset_content_type: application/java-archive
