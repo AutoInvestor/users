@@ -24,3 +24,6 @@ jobs:
 
       - name: Build & Test
         run: ./gradlew clean build
+
+      - name: Run Linter Check
+        run: ./gradlew spotlessCheck
