@@ -139,3 +139,25 @@ jobs:
         run: |
           docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
           docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:latest
+
+      - name: Update Deployment in CD Repository
+        if: steps.version_increment.outputs.bump != 'none'
+        env:
+          NEW_VERSION: ${{ env.NEW_VERSION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Clone the CD repository
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/AutoInvestor/infra-gitops.git
+          cd infra-gitops
+          
+          # Configure Git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Update the version for the image corresponding to the current repository
+          sed -i "/docker.io\/polpinol98\/${{ github.event.repository.name }}/{n;s/version: .*/version: ${NEW_VERSION}/}" config/deployment-config.yaml
+          
+          # Stage, commit, and push the changes
+          git add config/deployment-config.yaml
+          git commit -m "Update ${{ github.event.repository.name }} version to ${NEW_VERSION}"
+          git push origin main
