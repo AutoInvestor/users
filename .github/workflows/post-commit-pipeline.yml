@@ -155,8 +155,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
           # Update the version for the image corresponding to the current repository
-          sed -i "/docker.io\/polpinol98\/${{ github.event.repository.name }}/{n;s/version: .*/version: ${NEW_VERSION}/}" config/deployment-config.yaml
-          
+          sed -i "/docker.io\/polpinol98\/autoinvestor-${{ github.event.repository.name }}/ {N;s/\(version:[[:space:]]*\).*/\1${NEW_VERSION}/;}" config/deployment-config.yaml
+
           # Stage, commit, and push the changes
           git add config/deployment-config.yaml
           git commit -m "Update ${{ github.event.repository.name }} version to ${NEW_VERSION}"
