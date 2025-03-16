@@ -110,3 +110,29 @@ jobs:
           asset_path: ${{ steps.find_jar.outputs.jar_file }}
           asset_name: "${{ github.event.repository.name }}-${{ env.NEW_VERSION }}.jar"
           asset_content_type: application/java-archive
+
+      - name: Create app.jar
+        if: steps.version_increment.outputs.bump != 'none'
+        run: mv "${{ steps.find_jar.outputs.jar_file }}" app.jar
+
+      - name: Log in to Docker Hub
+        if: steps.version_increment.outputs.bump != 'none'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker Image
+        if: steps.version_increment.outputs.bump != 'none'
+        run: |
+          docker build \
+            --build-arg NEW_VERSION=${{ env.NEW_VERSION }} \
+            -t ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:${{ env.NEW_VERSION }} \
+            -t ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:latest \
+            .
+
+      - name: Push Docker Image
+        if: steps.version_increment.outputs.bump != 'none'
+        run: |
+          docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:${{ env.NEW_VERSION }}
+          docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:latest
