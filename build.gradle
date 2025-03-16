@@ -30,5 +30,6 @@ tasks.named('test') {
 spotless {
 	java {
 		googleJavaFormat('1.25.0')
+		eclipse().configFile 'config/eclipse-java-formatter.xml'
 	}
 }
