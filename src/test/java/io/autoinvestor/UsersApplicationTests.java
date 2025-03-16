@@ -1,4 +1,4 @@
-package io.autoinvestor.users;
+package io.autoinvestor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
