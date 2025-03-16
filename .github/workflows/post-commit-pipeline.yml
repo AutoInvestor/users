@@ -144,10 +144,9 @@ jobs:
         if: steps.version_increment.outputs.bump != 'none'
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CD_REPO_TOKEN: ${{ secrets.CD_REPO_TOKEN }}
         run: |
-          # Clone the CD repository
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/AutoInvestor/infra-gitops.git
+          git clone https://x-access-token:${CD_REPO_TOKEN}@github.com/AutoInvestor/infra-gitops.git
           cd infra-gitops
           
           # Configure Git
