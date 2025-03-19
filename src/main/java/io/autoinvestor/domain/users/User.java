@@ -1,45 +1,50 @@
 package io.autoinvestor.domain.users;
 
 import io.autoinvestor.domain.AggregateRoot;
+import io.autoinvestor.domain.Event;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User extends AggregateRoot {
-    private final UserId id;
-    private final UserName name;
-    private final Date createdAt;
-    private Date updatedAt;
+    private UserState userState;
 
-    private User(UserId id, UserName name, Date createdAt, Date updatedAt) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+
+    private User(List<Event<?>> stream) {
+        super(stream);
     }
 
-    public static User create(String name) {
+    @Override
+    protected void when(Event<?> event) {
+        switch (event.getType()) {
+            case "UserWasRegisteredEvent":
+                this.whenUserCreated((UserWasRegisteredEvent) event);
+                break;
+        }
+    }
+
+    public static User empty(){
+        return new User(new ArrayList<>());
+    }
+
+    private void whenUserCreated (UserWasRegisteredEvent event) {
+        this.userState = UserState.withUserCreated(event);
+    }
+
+    public static User create(String name, String email) {
         UserId id = UserId.generate();
         UserName username = new UserName(name);
-        Date createdAt = new Date();
-        Date updatedAt = new Date();
-
-        User user = new User(id, username, createdAt, updatedAt);
-        user.recordEvent(UserWasRegisteredEvent.from(user));
+        UserEmail userEmail = new UserEmail(email);
+        User user = User.empty();
+        user.createUser(id, username, userEmail);
         return user;
+
     }
 
-    public UserId getId() {
-        return id;
+    public void createUser (UserId userId, UserName userName, UserEmail userEmail) {
+        this.apply(UserWasRegisteredEvent.with(userId, userName, userEmail));
     }
 
-    public UserName getName() {
-        return name;
-    }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
 }

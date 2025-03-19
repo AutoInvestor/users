@@ -20,7 +20,7 @@ public class RegisterUserController {
 
     @PostMapping
     public ResponseEntity<Void> handle(@RequestBody UserDTO dto) {
-        commandHandler.handle(new RegisterUserCommand(dto.name()));
+        commandHandler.handle(new RegisterUserCommand(dto.name(), dto.email()));
         return ResponseEntity.ok().build();
     }
 }

@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInternalErrorException(InternalErrorException ex) {
         return ErrorResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).message(ex.getMessage()).build();
     }
+
+    @ExceptionHandler(EmailNotValid.class)
+    public ResponseEntity<ErrorResponse> handleEmailNotValid(EmailNotValid ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(409)).message(ex.getMessage()).build();
+    }
 }

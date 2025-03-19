@@ -1,4 +1,4 @@
 package io.autoinvestor.application;
 
-public record RegisterUserCommand(String name) {
+public record RegisterUserCommand(String name, String email) {
 }

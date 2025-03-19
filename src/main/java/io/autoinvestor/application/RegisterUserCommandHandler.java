@@ -17,7 +17,7 @@ public class RegisterUserCommandHandler {
     }
 
     public void handle(RegisterUserCommand command) {
-        User user = User.create(command.name());
+        User user = User.create(command.name(), command.email());
         this.repository.save(user);
         this.eventPublisher.publish(user.releaseEvents());
     }
