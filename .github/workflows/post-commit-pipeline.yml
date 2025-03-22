@@ -74,6 +74,8 @@ jobs:
           fi
           NEW_VERSION="$major.$minor.$patch"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+      - name: Set up environment variables
+        run: echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> $GITHUB_ENV
 
       - name: Build & Test
         run: ./gradlew clean build
