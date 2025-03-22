@@ -1,10 +1,9 @@
 package io.autoinvestor.infrastructure;
 
 import io.autoinvestor.application.UserRegistredReadModel;
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRegisteredReadModel implements UserRegistredReadModel {

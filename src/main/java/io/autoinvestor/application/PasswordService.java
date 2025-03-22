@@ -12,7 +12,7 @@ public class PasswordService {
         return encoder.encode(rawPassword);
     }
 
-    public static boolean matches (String passwordRaw, String passwordEncrypted) {
+    public static boolean matches(String passwordRaw, String passwordEncrypted) {
         return encoder.matches(passwordRaw, passwordEncrypted);
     }
 }

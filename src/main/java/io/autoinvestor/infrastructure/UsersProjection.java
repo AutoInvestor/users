@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 public class UsersProjection {
     private final UserRegisteredReadModel userRegisteredReadModel;
 
-    public UsersProjection (UserRegisteredReadModel userRegisteredReadModel) {
+    public UsersProjection(UserRegisteredReadModel userRegisteredReadModel) {
         this.userRegisteredReadModel = userRegisteredReadModel;
     }
+
     @EventListener
     public void onUserRegistered(UserWasRegisteredEvent userWasRegisteredEvent) {
         this.userRegisteredReadModel.add(userWasRegisteredEvent.getPayload().username().value());

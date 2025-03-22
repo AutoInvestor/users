@@ -9,7 +9,7 @@ public class AggregateRoot {
 
     protected AggregateRoot(List<Event<?>> stream) {
         if (!stream.isEmpty()) {
-            for(Event<?> event : stream) {
+            for (Event<?> event : stream) {
                 this.when(event);
             }
             this.version = stream.size();
@@ -19,14 +19,14 @@ public class AggregateRoot {
         appliedEvents = new ArrayList<>();
     }
 
-    protected void when (Event<?> event) {
+    protected void when(Event<?> event) {
     }
 
     protected void recordEvent(Event<? extends EventPayload> event) {
         this.appliedEvents.add(event);
     }
 
-    protected void apply (Event<?> event) {
+    protected void apply(Event<?> event) {
         this.when(event);
         this.appliedEvents.add(event);
     }

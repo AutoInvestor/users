@@ -5,8 +5,8 @@ public class UnauthorizedPassword extends RuntimeException {
         super(message);
     }
 
-    public static UnauthorizedPassword with () {
-      String messageException = "Invalid password";
-      return new UnauthorizedPassword(messageException);
+    public static UnauthorizedPassword with() {
+        String messageException = "Invalid password";
+        return new UnauthorizedPassword(messageException);
     }
 }

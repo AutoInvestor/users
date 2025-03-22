@@ -5,7 +5,7 @@ public class UserRegisteredAlreadyExists extends RuntimeException {
         super(message);
     }
 
-    public static UserRegisteredAlreadyExists with (String username) {
+    public static UserRegisteredAlreadyExists with(String username) {
         String exceptionMessage = "Invalid username. " + username + " already exists.";
         return new UserRegisteredAlreadyExists(exceptionMessage);
     }

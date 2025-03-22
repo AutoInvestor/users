@@ -5,9 +5,8 @@ import io.autoinvestor.domain.Event;
 import io.autoinvestor.domain.EventPublisher;
 import io.autoinvestor.domain.UserRepository;
 import io.autoinvestor.domain.users.User;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RegisterUserCommandHandler {
@@ -16,12 +15,11 @@ public class RegisterUserCommandHandler {
     private final EventPublisher eventPublisher;
     private final UserRegistredReadModel userRegistredReadModel;
 
-
-    public RegisterUserCommandHandler(UserRepository repository, EventPublisher eventPublisher, UserRegistredReadModel userRegistredReadModel) {
+    public RegisterUserCommandHandler(UserRepository repository, EventPublisher eventPublisher,
+            UserRegistredReadModel userRegistredReadModel) {
         this.repository = repository;
         this.eventPublisher = eventPublisher;
         this.userRegistredReadModel = userRegistredReadModel;
-
     }
 
     public void handle(RegisterUserCommand command) {

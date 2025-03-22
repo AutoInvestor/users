@@ -9,8 +9,10 @@ public class LoginCommandHandler {
     private LoginCommandHandler(UserPasswordReadModel userPasswordReadModel) {
         this.userPasswordReadModel = userPasswordReadModel;
     }
-    public void handle (LoginCommand loginCommand) {
-        if (!PasswordService.matches(loginCommand.password(), userPasswordReadModel.getPassword(loginCommand.username()))) {
+
+    public void handle(LoginCommand loginCommand) {
+        if (!PasswordService.matches(loginCommand.password(),
+                userPasswordReadModel.getPassword(loginCommand.username()))) {
             throw UnauthorizedPassword.with();
         }
     }

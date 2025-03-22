@@ -2,14 +2,11 @@ package io.autoinvestor.domain.users;
 
 import io.autoinvestor.domain.AggregateRoot;
 import io.autoinvestor.domain.Event;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User extends AggregateRoot {
     private UserState userState;
-
 
     private User(List<Event<?>> stream) {
         super(stream);
@@ -18,17 +15,17 @@ public class User extends AggregateRoot {
     @Override
     protected void when(Event<?> event) {
         switch (event.getType()) {
-            case "UserWasRegisteredEvent":
+            case "UserWasRegisteredEvent" :
                 this.whenUserCreated((UserWasRegisteredEvent) event);
                 break;
         }
     }
 
-    public static User empty(){
+    public static User empty() {
         return new User(new ArrayList<>());
     }
 
-    private void whenUserCreated (UserWasRegisteredEvent event) {
+    private void whenUserCreated(UserWasRegisteredEvent event) {
         this.userState = UserState.withUserCreated(event);
     }
 
@@ -40,12 +37,9 @@ public class User extends AggregateRoot {
         User user = User.empty();
         user.createUser(id, username, userEmail, encryptedPassword);
         return user;
-
     }
 
-    public void createUser (UserId userId, UserName userName, UserEmail userEmail, UserPassword userPassword) {
+    public void createUser(UserId userId, UserName userName, UserEmail userEmail, UserPassword userPassword) {
         this.apply(UserWasRegisteredEvent.with(userId, userName, userEmail, userPassword));
     }
-
-
 }

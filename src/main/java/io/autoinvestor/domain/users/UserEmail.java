@@ -1,14 +1,13 @@
 package io.autoinvestor.domain.users;
 
 import io.autoinvestor.exceptions.EmailNotValid;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserEmail {
     private final String email;
 
-    public UserEmail (String email) {
+    public UserEmail(String email) {
         validate(email);
         this.email = email;
     }

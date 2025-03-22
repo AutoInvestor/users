@@ -5,8 +5,8 @@ public class EmailNotValid extends RuntimeException {
         super(message);
     }
 
-    public static EmailNotValid with (String email) {
-      String exceptionMessage = "Email " + email + " is not valid";
-      return new EmailNotValid(exceptionMessage);
+    public static EmailNotValid with(String email) {
+        String exceptionMessage = "Email " + email + " is not valid";
+        return new EmailNotValid(exceptionMessage);
     }
 }

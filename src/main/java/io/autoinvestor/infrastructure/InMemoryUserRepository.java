@@ -2,7 +2,6 @@ package io.autoinvestor.infrastructure;
 
 import io.autoinvestor.domain.Event;
 import io.autoinvestor.domain.UserRepository;
-import io.autoinvestor.domain.users.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -15,6 +14,4 @@ public class InMemoryUserRepository implements UserRepository {
     public void save(List<Event<?>> userEvents) {
         eventStore.addAll(userEvents);
     }
-
-
 }
