@@ -2,6 +2,8 @@ package io.autoinvestor.domain;
 
 import io.autoinvestor.domain.users.User;
 
+import java.util.List;
+
 public interface UserRepository {
-    void save(User user);
+    void save(List<Event<?>> userEvents);
 }
