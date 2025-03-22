@@ -2,7 +2,6 @@ package io.autoinvestor.application.LoginUseCase;
 
 import io.autoinvestor.application.PasswordService;
 import io.autoinvestor.application.UserPasswordReadModel;
-<<<<<<< HEAD
 import io.autoinvestor.application.UserRegistredReadModel;
 import org.springframework.stereotype.Component;
 
