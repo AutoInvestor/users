@@ -1,4 +1,4 @@
-package io.autoinvestor.ui;
+package io.autoinvestor.ui.RegisterUser;
 
 import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommand;
 import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommandHandler;
@@ -19,7 +19,7 @@ public class RegisterUserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> handle(@RequestBody UserDTO dto) {
+    public ResponseEntity<Void> handle(@RequestBody RegisterUserDTO dto) {
         commandHandler.handle(new RegisterUserCommand(dto.username(), dto.email(), dto.password()));
         return ResponseEntity.ok().build();
     }

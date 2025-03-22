@@ -1,12 +1,12 @@
-package io.autoinvestor.ui;
+package io.autoinvestor.ui.RegisterUser;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record UserDTO(String username, String email, String password) {
+public record RegisterUserDTO(String username, String email, String password) {
 
     @JsonCreator
-    public UserDTO(@JsonProperty("username") String username, @JsonProperty("email") String email,
+    public RegisterUserDTO(@JsonProperty("username") String username, @JsonProperty("email") String email,
             @JsonProperty("password") String password) {
         this.username = username;
         this.email = email;

@@ -23,7 +23,7 @@ public class UserPassword {
         }
     }
 
-    private String value() {
+    public String value() {
         return this.encryptedPassword;
     }
 }
