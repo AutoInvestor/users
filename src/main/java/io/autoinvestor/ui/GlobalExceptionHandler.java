@@ -1,5 +1,7 @@
 package io.autoinvestor.ui;
 
+import io.autoinvestor.application.RegisterUserUseCase.UserRegisteredAlreadyExists;
+import io.autoinvestor.domain.users.InvalidPasswordLength;
 import io.autoinvestor.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +34,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InternalErrorException.class)
     public ResponseEntity<ErrorResponse> handleInternalErrorException(InternalErrorException ex) {
         return ErrorResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(EmailNotValid.class)
+    public ResponseEntity<ErrorResponse> handleEmailNotValid(EmailNotValid ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(409)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(UserRegisteredAlreadyExists.class)
+    public ResponseEntity<ErrorResponse> handleUserRegisteredAlreadyExists(UserRegisteredAlreadyExists ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(409)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(InvalidPasswordLength.class)
+    public ResponseEntity<ErrorResponse> handleInvalidPasswordLength(InvalidPasswordLength ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
     }
 }

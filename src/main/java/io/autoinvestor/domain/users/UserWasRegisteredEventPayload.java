@@ -3,9 +3,10 @@ package io.autoinvestor.domain.users;
 import io.autoinvestor.domain.EventPayload;
 import java.util.Map;
 
-public record UserWasRegisteredEventPayload(String name) implements EventPayload {
+public record UserWasRegisteredEventPayload(UserName username, UserEmail email,
+        UserPassword userPassword) implements EventPayload {
     @Override
     public Map<String, Object> asMap() {
-        return Map.of("name", name);
+        return Map.of("username", username, "email", email, "password", userPassword);
     }
 }

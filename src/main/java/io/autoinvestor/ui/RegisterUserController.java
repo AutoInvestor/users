@@ -1,7 +1,7 @@
 package io.autoinvestor.ui;
 
-import io.autoinvestor.application.RegisterUserCommand;
-import io.autoinvestor.application.RegisterUserCommandHandler;
+import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommand;
+import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommandHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ public class RegisterUserController {
 
     @PostMapping
     public ResponseEntity<Void> handle(@RequestBody UserDTO dto) {
-        commandHandler.handle(new RegisterUserCommand(dto.name()));
+        commandHandler.handle(new RegisterUserCommand(dto.username(), dto.email(), dto.password()));
         return ResponseEntity.ok().build();
     }
 }

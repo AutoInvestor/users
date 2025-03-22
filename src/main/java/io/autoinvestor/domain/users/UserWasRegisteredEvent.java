@@ -9,8 +9,9 @@ public class UserWasRegisteredEvent extends Event<UserWasRegisteredEventPayload>
         super(aggregateId, "UserWasRegisteredEvent", payload);
     }
 
-    public static UserWasRegisteredEvent from(User user) {
-        UserWasRegisteredEventPayload payload = new UserWasRegisteredEventPayload(user.getName().value());
-        return new UserWasRegisteredEvent(user.getId(), payload);
+    public static UserWasRegisteredEvent with(UserId userId, UserName userName, UserEmail userEmail,
+            UserPassword userPassword) {
+        UserWasRegisteredEventPayload payload = new UserWasRegisteredEventPayload(userName, userEmail, userPassword);
+        return new UserWasRegisteredEvent(userId, payload);
     }
 }
