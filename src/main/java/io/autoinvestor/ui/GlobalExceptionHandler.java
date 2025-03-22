@@ -1,14 +1,18 @@
 package io.autoinvestor.ui;
 
+import io.autoinvestor.application.LoginUseCase.LoginUserNotFound;
+import io.autoinvestor.application.LoginUseCase.UnauthorizedPassword;
 import io.autoinvestor.application.RegisterUserUseCase.UserRegisteredAlreadyExists;
 import io.autoinvestor.domain.users.InvalidPasswordLength;
 import io.autoinvestor.exceptions.*;
+import io.autoinvestor.ui.LoginUser.LoginUserController;
+import io.autoinvestor.ui.RegisterUser.RegisterUserController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {RegisterUserController.class,})
+@RestControllerAdvice(assignableTypes = {RegisterUserController.class, LoginUserController.class})
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicatedException.class)
@@ -49,5 +53,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidPasswordLength.class)
     public ResponseEntity<ErrorResponse> handleInvalidPasswordLength(InvalidPasswordLength ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(LoginUserNotFound.class)
+    public ResponseEntity<ErrorResponse> handleLoginUserNotFound(LoginUserNotFound ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(404)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(UnauthorizedPassword.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedPssword(UnauthorizedPassword ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(401)).message(ex.getMessage()).build();
     }
 }
