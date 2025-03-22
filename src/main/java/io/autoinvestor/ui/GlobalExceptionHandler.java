@@ -1,5 +1,6 @@
 package io.autoinvestor.ui;
 
+
 import io.autoinvestor.application.LoginUseCase.LoginUserNotFound;
 import io.autoinvestor.application.LoginUseCase.UnauthorizedPassword;
 import io.autoinvestor.application.RegisterUserUseCase.UserRegisteredAlreadyExists;
@@ -55,6 +56,7 @@ public class GlobalExceptionHandler {
         return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
     }
 
+
     @ExceptionHandler(LoginUserNotFound.class)
     public ResponseEntity<ErrorResponse> handleLoginUserNotFound(LoginUserNotFound ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(404)).message(ex.getMessage()).build();
@@ -64,4 +66,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUnauthorizedPssword(UnauthorizedPassword ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(401)).message(ex.getMessage()).build();
     }
+
 }
