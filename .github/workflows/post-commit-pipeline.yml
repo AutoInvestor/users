@@ -12,7 +12,7 @@ jobs:
   build_test_release:
     runs-on: ubuntu-22.04
     outputs:
-      new-version: ${{ steps.calculate_version.outcome.NEW_VERSION }}
+      new-version: ${{ steps.calculate_version.outputs.NEW_VERSION }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
@@ -148,6 +148,6 @@ jobs:
     uses: AutoInvestor/infra-gitops/.github/workflows/update-version.yml@main
     needs: build_test_release
     with:
-      image: autoinvestor-frontend
+      image: autoinvestor-users
       version: ${{ needs.build_test_release.outputs.new-version }}
     secrets: inherit
