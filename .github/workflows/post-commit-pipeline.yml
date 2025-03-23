@@ -144,10 +144,10 @@ jobs:
           docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:${{ steps.calculate_version.outputs.NEW_VERSION }}
           docker push ${{ vars.DOCKERHUB_NAMESPACE }}/autoinvestor-${{ github.event.repository.name }}:latest
 
-    update-cd-repo:
-      uses: AutoInvestor/infra-gitops/.github/workflows/update-version.yml@main
-      needs: build_test_release
-      with:
-        image: autoinvestor-frontend
-        version: ${{ needs.build_test_release.outputs.new-version }}
-      secrets: inherit
+  update-cd-repo:
+    uses: AutoInvestor/infra-gitops/.github/workflows/update-version.yml@main
+    needs: build_test_release
+    with:
+      image: autoinvestor-frontend
+      version: ${{ needs.build_test_release.outputs.new-version }}
+    secrets: inherit
