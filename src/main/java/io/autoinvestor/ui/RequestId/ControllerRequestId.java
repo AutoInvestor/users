@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControllerRequestId {
 
     @GetMapping
-    public String getUserId (@RequestBody EmailRequest email) {
+    public String getUserId(@RequestBody EmailRequest email) {
         if (email.getEmail().equals("mate.alfredo98@gmail.com")) {
             return "12345";
         } else {
