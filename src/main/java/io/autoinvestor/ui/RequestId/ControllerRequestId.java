@@ -1,15 +1,12 @@
 package io.autoinvestor.ui.RequestId;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/userId")
 public class ControllerRequestId {
 
-    @GetMapping
+    @PostMapping
     public String getUserId(@RequestBody EmailRequest email) {
         if (email.getEmail().equals("mate.alfredo98@gmail.com")) {
             return "12345";
