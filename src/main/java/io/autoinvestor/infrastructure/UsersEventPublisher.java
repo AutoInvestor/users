@@ -13,6 +13,6 @@ public class UsersEventPublisher {
         this.pubSubTemplate = pubSubTemplate;
     }
 
-    //public void publishUserCreated(User)
+    // public void publishUserCreated(User)
 
 }
