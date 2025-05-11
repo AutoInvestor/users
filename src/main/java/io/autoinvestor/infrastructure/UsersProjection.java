@@ -20,8 +20,8 @@ public class UsersProjection {
 
     @EventListener
     public void onUserRegistered(UserWasRegisteredEvent userWasRegisteredEvent) {
-        this.userRegisteredReadModel.add(userWasRegisteredEvent.getPayload().username().value());
-        this.userPasswordReadModel.save(userWasRegisteredEvent.getPayload().username().value(),
+        this.userRegisteredReadModel.add(userWasRegisteredEvent.getPayload().email().value());
+        this.userPasswordReadModel.save(userWasRegisteredEvent.getPayload().email().value(),
                 userWasRegisteredEvent.getPayload().userPassword().value());
     }
 }

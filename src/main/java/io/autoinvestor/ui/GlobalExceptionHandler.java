@@ -7,6 +7,7 @@ import io.autoinvestor.domain.users.InvalidPasswordLength;
 import io.autoinvestor.exceptions.*;
 import io.autoinvestor.ui.LoginUser.LoginUserController;
 import io.autoinvestor.ui.RegisterUser.RegisterUserController;
+import io.autoinvestor.ui.RegisterUser.RegisterUserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,5 +64,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UnauthorizedPassword.class)
     public ResponseEntity<ErrorResponse> handleUnauthorizedPssword(UnauthorizedPassword ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(401)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(RiskLevelNotValid.class)
+    public ResponseEntity<ErrorResponse> handleRiskLevelNotValid(RiskLevelNotValid ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
     }
 }

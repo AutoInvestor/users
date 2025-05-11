@@ -6,12 +6,12 @@ import io.autoinvestor.domain.Id;
 public class UserWasRegisteredEvent extends Event<UserWasRegisteredEventPayload> {
 
     private UserWasRegisteredEvent(Id aggregateId, UserWasRegisteredEventPayload payload) {
-        super(aggregateId, "UserWasRegisteredEvent", payload);
+        super(aggregateId, "USER_CREATED", payload);
     }
 
-    public static UserWasRegisteredEvent with(UserId userId, UserName userName, UserEmail userEmail,
-            UserPassword userPassword) {
-        UserWasRegisteredEventPayload payload = new UserWasRegisteredEventPayload(userName, userEmail, userPassword);
+    public static UserWasRegisteredEvent with(UserId userId, FirstName firstName, LastName lastName, UserEmail userEmail,
+            UserPassword userPassword, RiskLevel riskLevel) {
+        UserWasRegisteredEventPayload payload = new UserWasRegisteredEventPayload(firstName, lastName, userEmail, userPassword, riskLevel);
         return new UserWasRegisteredEvent(userId, payload);
     }
 }

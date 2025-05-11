@@ -1,5 +1,6 @@
 package io.autoinvestor.domain.users;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.autoinvestor.exceptions.EmailNotValid;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,8 @@ public class UserEmail {
         }
     }
 
-    private String value() {
+    @JsonValue
+    public String value() {
         return this.email;
     }
 }
