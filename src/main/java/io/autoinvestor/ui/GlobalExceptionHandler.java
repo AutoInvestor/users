@@ -1,18 +1,17 @@
 package io.autoinvestor.ui;
 
-import io.autoinvestor.application.LoginUseCase.LoginUserNotFound;
-import io.autoinvestor.application.LoginUseCase.UnauthorizedPassword;
 import io.autoinvestor.application.RegisterUserUseCase.UserRegisteredAlreadyExists;
+import io.autoinvestor.application.RequestUserUseCase.UserNotFound;
 import io.autoinvestor.domain.users.InvalidPasswordLength;
 import io.autoinvestor.exceptions.*;
-import io.autoinvestor.ui.LoginUser.LoginUserController;
 import io.autoinvestor.ui.RegisterUser.RegisterUserController;
+import io.autoinvestor.ui.RequestUser.ControllerRequestUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {RegisterUserController.class, LoginUserController.class})
+@RestControllerAdvice(assignableTypes = {RegisterUserController.class, ControllerRequestUser.class})
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicatedException.class)
@@ -55,18 +54,13 @@ public class GlobalExceptionHandler {
         return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
     }
 
-    @ExceptionHandler(LoginUserNotFound.class)
-    public ResponseEntity<ErrorResponse> handleLoginUserNotFound(LoginUserNotFound ex) {
-        return ErrorResponse.builder().status(HttpStatus.valueOf(404)).message(ex.getMessage()).build();
-    }
-
-    @ExceptionHandler(UnauthorizedPassword.class)
-    public ResponseEntity<ErrorResponse> handleUnauthorizedPssword(UnauthorizedPassword ex) {
-        return ErrorResponse.builder().status(HttpStatus.valueOf(401)).message(ex.getMessage()).build();
-    }
-
     @ExceptionHandler(RiskLevelNotValid.class)
     public ResponseEntity<ErrorResponse> handleRiskLevelNotValid(RiskLevelNotValid ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
+    }
+
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFound ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(404)).message(ex.getMessage()).build();
     }
 }
