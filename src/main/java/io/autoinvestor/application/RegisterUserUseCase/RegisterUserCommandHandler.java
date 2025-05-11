@@ -1,6 +1,6 @@
 package io.autoinvestor.application.RegisterUserUseCase;
 
-import io.autoinvestor.application.UserRegistredReadModel;
+import io.autoinvestor.application.UsersReadModel;
 import io.autoinvestor.domain.Event;
 import io.autoinvestor.domain.EventPublisher;
 import io.autoinvestor.domain.UserRepository;
@@ -16,23 +16,23 @@ public class RegisterUserCommandHandler {
 
     private final UserRepository repository;
     private final EventPublisher eventPublisher;
-    private final UserRegistredReadModel userRegistredReadModel;
     private final UsersEventPublisher usersEventPublisher;
     private final UserCreatedEventMessageMapper userCreatedEventMessageMapper;
+    private UsersReadModel usersReadModel;
 
     public RegisterUserCommandHandler(UserRepository repository, EventPublisher eventPublisher,
-            UserRegistredReadModel userRegistredReadModel, UsersEventPublisher usersEventPublisher,
-            UserCreatedEventMessageMapper userCreatedEventMessageMapper) {
+            UsersEventPublisher usersEventPublisher, UserCreatedEventMessageMapper userCreatedEventMessageMapper,
+            UsersReadModel usersReadModel) {
         this.repository = repository;
         this.eventPublisher = eventPublisher;
-        this.userRegistredReadModel = userRegistredReadModel;
         this.usersEventPublisher = usersEventPublisher;
         this.userCreatedEventMessageMapper = userCreatedEventMessageMapper;
+        this.usersReadModel = usersReadModel;
     }
 
     public void handle(RegisterUserCommand command) {
 
-        if (userRegistredReadModel.exists(command.email())) {
+        if (usersReadModel.get(command.email()) != null) {
             throw UserRegisteredAlreadyExists.with(command.email());
         }
 

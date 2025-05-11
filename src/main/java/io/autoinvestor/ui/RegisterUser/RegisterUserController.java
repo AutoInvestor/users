@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/registerUser")
+@RequestMapping("/api/user")
 public class RegisterUserController {
 
     private final RegisterUserCommandHandler commandHandler;
