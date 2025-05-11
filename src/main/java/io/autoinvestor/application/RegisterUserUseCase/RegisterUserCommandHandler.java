@@ -5,11 +5,10 @@ import io.autoinvestor.domain.Event;
 import io.autoinvestor.domain.EventPublisher;
 import io.autoinvestor.domain.UserRepository;
 import io.autoinvestor.domain.users.User;
-import java.util.List;
-
 import io.autoinvestor.infrastructure.UserCreatedEventMessageMapper;
 import io.autoinvestor.infrastructure.UserCreatedMessage;
 import io.autoinvestor.infrastructure.UsersEventPublisher;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,9 +19,10 @@ public class RegisterUserCommandHandler {
     private final UserRegistredReadModel userRegistredReadModel;
     private final UsersEventPublisher usersEventPublisher;
     private final UserCreatedEventMessageMapper userCreatedEventMessageMapper;
+
     public RegisterUserCommandHandler(UserRepository repository, EventPublisher eventPublisher,
             UserRegistredReadModel userRegistredReadModel, UsersEventPublisher usersEventPublisher,
-                                      UserCreatedEventMessageMapper userCreatedEventMessageMapper) {
+            UserCreatedEventMessageMapper userCreatedEventMessageMapper) {
         this.repository = repository;
         this.eventPublisher = eventPublisher;
         this.userRegistredReadModel = userRegistredReadModel;
@@ -36,7 +36,8 @@ public class RegisterUserCommandHandler {
             throw UserRegisteredAlreadyExists.with(command.email());
         }
 
-        User user = User.create(command.firstName(), command.lastName(), command.email(), command.password(), command.riskLevel());
+        User user = User.create(command.firstName(), command.lastName(), command.email(), command.password(),
+                command.riskLevel());
         List<Event<?>> uncomittedEvents = user.releaseEvents();
         this.repository.save(uncomittedEvents);
         this.eventPublisher.publish(uncomittedEvents);

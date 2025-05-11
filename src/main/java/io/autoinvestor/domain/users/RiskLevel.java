@@ -3,8 +3,6 @@ package io.autoinvestor.domain.users;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.autoinvestor.exceptions.RiskLevelNotValid;
 
-
-
 public class RiskLevel {
     private final Integer riskLevel;
 
@@ -19,6 +17,7 @@ public class RiskLevel {
             throw RiskLevelNotValid.with(riskLevel);
         }
     }
+
     @JsonValue
     public Integer value() {
         return this.riskLevel;

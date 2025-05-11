@@ -3,11 +3,8 @@ package io.autoinvestor.infrastructure;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
-import io.autoinvestor.domain.Event;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UsersEventPublisher {
@@ -31,5 +28,4 @@ public class UsersEventPublisher {
             }
         }
     }
-
 }

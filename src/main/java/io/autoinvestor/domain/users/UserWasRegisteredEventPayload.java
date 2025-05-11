@@ -7,6 +7,7 @@ public record UserWasRegisteredEventPayload(FirstName firstName, LastName lastNa
         UserPassword userPassword, RiskLevel riskLevel) implements EventPayload {
     @Override
     public Map<String, Object> asMap() {
-        return Map.of("firstName", firstName, "lastName", lastName, "email", email, "password", userPassword, "riskLevel", riskLevel);
+        return Map.of("firstName", firstName, "lastName", lastName, "email", email, "password", userPassword,
+                "riskLevel", riskLevel);
     }
 }

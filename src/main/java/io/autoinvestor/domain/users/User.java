@@ -41,7 +41,8 @@ public class User extends AggregateRoot {
         return user;
     }
 
-    public void createUser(UserId userId, FirstName firstName, LastName lastName, UserEmail userEmail, UserPassword userPassword, RiskLevel riskLevel) {
+    public void createUser(UserId userId, FirstName firstName, LastName lastName, UserEmail userEmail,
+            UserPassword userPassword, RiskLevel riskLevel) {
         this.apply(UserWasRegisteredEvent.with(userId, firstName, lastName, userEmail, userPassword, riskLevel));
     }
 }
