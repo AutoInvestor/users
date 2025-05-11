@@ -13,16 +13,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class UsersApplicationTests {
 
-
+    @Autowired
+    private UsersEventPublisher publisher;
 
     @Test
     void shouldPublishSerializedUserCreatedMessage() throws Exception {
@@ -45,7 +44,7 @@ class UsersApplicationTests {
         // Then
         ArgumentCaptor<String> payloadCaptor = ArgumentCaptor.forClass(String.class);
 
-        verify(pubSubTemplate).publish(eq("users"), payloadCaptor.capture(), anyMap());
+        verify(pubSubTemplate).publish(eq("users"), payloadCaptor.capture());
 
         String publishedJson = payloadCaptor.getValue();
 
