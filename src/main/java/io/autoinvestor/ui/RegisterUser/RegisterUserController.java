@@ -21,7 +21,8 @@ public class RegisterUserController {
     @PostMapping
     public ResponseEntity<Void> handle(@RequestBody RegisterUserDTO dto) {
 
-        commandHandler.handle(new RegisterUserCommand(dto.username(), dto.email(), dto.password()));
+        commandHandler.handle(
+                new RegisterUserCommand(dto.firstName(), dto.lastName(), dto.email(), dto.password(), dto.riskLevel()));
         return ResponseEntity.ok().build();
     }
 }

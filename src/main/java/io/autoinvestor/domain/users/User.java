@@ -29,17 +29,20 @@ public class User extends AggregateRoot {
         this.userState = UserState.withUserCreated(event);
     }
 
-    public static User create(String name, String email, String rawPassword) {
+    public static User create(String firstName, String lastName, String email, String rawPassword, Integer riskLevel) {
         UserId id = UserId.generate();
-        UserName username = new UserName(name);
+        FirstName firstNameDTO = new FirstName(firstName);
+        LastName lastNameDTO = new LastName(lastName);
+        RiskLevel riskLevelDTO = new RiskLevel(riskLevel);
         UserEmail userEmail = new UserEmail(email);
         UserPassword encryptedPassword = UserPassword.create(rawPassword);
         User user = User.empty();
-        user.createUser(id, username, userEmail, encryptedPassword);
+        user.createUser(id, firstNameDTO, lastNameDTO, userEmail, encryptedPassword, riskLevelDTO);
         return user;
     }
 
-    public void createUser(UserId userId, UserName userName, UserEmail userEmail, UserPassword userPassword) {
-        this.apply(UserWasRegisteredEvent.with(userId, userName, userEmail, userPassword));
+    public void createUser(UserId userId, FirstName firstName, LastName lastName, UserEmail userEmail,
+            UserPassword userPassword, RiskLevel riskLevel) {
+        this.apply(UserWasRegisteredEvent.with(userId, firstName, lastName, userEmail, userPassword, riskLevel));
     }
 }

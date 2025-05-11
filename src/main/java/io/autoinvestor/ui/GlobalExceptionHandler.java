@@ -64,4 +64,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUnauthorizedPssword(UnauthorizedPassword ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(401)).message(ex.getMessage()).build();
     }
+
+    @ExceptionHandler(RiskLevelNotValid.class)
+    public ResponseEntity<ErrorResponse> handleRiskLevelNotValid(RiskLevelNotValid ex) {
+        return ErrorResponse.builder().status(HttpStatus.valueOf(400)).message(ex.getMessage()).build();
+    }
 }

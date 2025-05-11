@@ -1,5 +1,6 @@
 package io.autoinvestor.domain.users;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.autoinvestor.application.PasswordService;
 
 public class UserPassword {
@@ -23,8 +24,8 @@ public class UserPassword {
         }
     }
 
+    @JsonValue
     public String value() {
-
         return this.encryptedPassword;
     }
 }
