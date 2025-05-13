@@ -20,14 +20,15 @@ public class UserController {
     private final RegisterUserCommandHandler registerUserCommandHandler;
 
     @GetMapping
-    public ResponseEntity<UserResponse> getUser(@RequestParam("email") String email) {
+    public ResponseEntity<UserResponse> getUser(
+            @RequestHeader(value = "X-User-Id", required = false) String userId,
+            @RequestParam("email") String email
+    ) {
+        if (userId != null) {
+            // TODO: return user by userId
+            return ResponseEntity.ok(new UserResponse(userId, null, null, null, null));
+        }
         return ResponseEntity.ok(getUserCommandHandler.handle(new GetUserQuery(email)));
-    }
-
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable("userId") String userId) {
-        // TODO: Get user by aggregateId
-        return ResponseEntity.noContent().build();
     }
 
     @PostMapping
