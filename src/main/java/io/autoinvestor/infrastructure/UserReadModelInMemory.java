@@ -22,12 +22,10 @@ public class UserReadModelInMemory implements UsersReadModel {
 
     @Override
     public UserResponse get(String email) {
-        UserReadModelDocument userReadModelDocument = userReadModelDocuments.stream()
-                .filter(document -> document.email().equals(email)).findFirst().orElse(null);
-        if (userReadModelDocument == null) {
-            return null;
-        } else {
-            return UserResponseDocumentMapper.map(userReadModelDocument);
-        }
+        return userReadModelDocuments.stream()
+                .filter(document -> document.email().equals(email))
+                .findFirst()
+                .map(UserResponseDocumentMapper::map)
+                .orElse(null);
     }
 }

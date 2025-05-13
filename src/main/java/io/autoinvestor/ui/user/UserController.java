@@ -24,6 +24,12 @@ public class UserController {
         return ResponseEntity.ok(getUserCommandHandler.handle(new GetUserQuery(email)));
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable("userId") String userId) {
+        // TODO: Get user by aggregateId
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping
     public ResponseEntity<Void> handle(@RequestBody RegisterUserRequest dto) {
         registerUserCommandHandler.handle(new RegisterUserCommand(

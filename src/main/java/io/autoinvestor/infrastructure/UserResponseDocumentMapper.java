@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class UserResponseDocumentMapper {
 
     public static UserResponse map(UserReadModelDocument document) {
-        return new UserResponse(document.email(), document.firstName(), document.lastName(), document.riskLevel());
+        return new UserResponse(document.userId(), document.email(), document.firstName(), document.lastName(), document.riskLevel());
     }
 }
