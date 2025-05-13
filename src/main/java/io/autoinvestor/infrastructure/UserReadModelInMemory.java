@@ -1,14 +1,16 @@
 package io.autoinvestor.infrastructure;
 
 import io.autoinvestor.application.UsersReadModel;
-import io.autoinvestor.ui.RequestUser.UserResponse;
+import io.autoinvestor.ui.user.UserResponse;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserReadModelInMemory implements UsersReadModel {
-    private List<UserReadModelDocument> userReadModelDocuments;
+
+    private final List<UserReadModelDocument> userReadModelDocuments;
 
     public UserReadModelInMemory() {
         userReadModelDocuments = new ArrayList<>();

@@ -4,14 +4,13 @@ import io.autoinvestor.application.RegisterUserUseCase.UserRegisteredAlreadyExis
 import io.autoinvestor.application.RequestUserUseCase.UserNotFound;
 import io.autoinvestor.domain.users.InvalidPasswordLength;
 import io.autoinvestor.exceptions.*;
-import io.autoinvestor.ui.RegisterUser.RegisterUserController;
-import io.autoinvestor.ui.RequestUser.ControllerRequestUser;
+import io.autoinvestor.ui.user.UserController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {RegisterUserController.class, ControllerRequestUser.class})
+@RestControllerAdvice(assignableTypes = {UserController.class})
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicatedException.class)

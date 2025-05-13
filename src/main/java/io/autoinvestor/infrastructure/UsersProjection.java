@@ -17,13 +17,11 @@ public class UsersProjection {
     public void onUserRegistered(UserWasRegisteredEvent userWasRegisteredEvent) {
         String userId = userWasRegisteredEvent.getAggregateId().value();
         String email = userWasRegisteredEvent.getPayload().email().value();
-        String password = userWasRegisteredEvent.getPayload().userPassword().value();
         String firstName = userWasRegisteredEvent.getPayload().firstName().value();
         String lastName = userWasRegisteredEvent.getPayload().lastName().value();
         Integer riskLevel = userWasRegisteredEvent.getPayload().riskLevel().value();
 
-        UserReadModelDocument userReadModelDocument = new UserReadModelDocument(userId, email, password, firstName,
-                lastName, riskLevel);
+        UserReadModelDocument userReadModelDocument = new UserReadModelDocument(userId, email, firstName, lastName, riskLevel);
         this.userReadModelInMemory.add(userReadModelDocument);
     }
 }
