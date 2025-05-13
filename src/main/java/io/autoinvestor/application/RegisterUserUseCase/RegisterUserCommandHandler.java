@@ -5,6 +5,7 @@ import io.autoinvestor.domain.Event;
 import io.autoinvestor.domain.EventPublisher;
 import io.autoinvestor.domain.UserRepository;
 import io.autoinvestor.domain.users.User;
+import io.autoinvestor.exceptions.BadRequestException;
 import io.autoinvestor.infrastructure.UserCreatedEventMessageMapper;
 import io.autoinvestor.infrastructure.UserCreatedMessage;
 import io.autoinvestor.infrastructure.UsersEventPublisher;
@@ -24,6 +25,9 @@ public class RegisterUserCommandHandler {
     private final UsersReadModel usersReadModel;
 
     public void handle(RegisterUserCommand command) {
+        if (command.email() == null || command.email().isBlank()) {
+            throw new BadRequestException("Email cannot be null or empty");
+        }
         if (usersReadModel.get(command.email()) != null) {
             throw UserRegisteredAlreadyExists.with(command.email());
         }

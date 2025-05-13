@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final Integer DEFAULT_RISK_LEVEL = 1;
+
     private final GetUserQueryHandler getUserCommandHandler;
     private final RegisterUserCommandHandler registerUserCommandHandler;
 
@@ -24,7 +26,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> handle(@RequestBody RegisterUserRequest dto) {
-        registerUserCommandHandler.handle(new RegisterUserCommand(dto.firstName(), dto.lastName(), dto.email(), dto.riskLevel()));
+        registerUserCommandHandler.handle(new RegisterUserCommand(
+                dto.firstName(),
+                dto.lastName(),
+                dto.email(),
+                dto.riskLevel() != null ? dto.riskLevel() : DEFAULT_RISK_LEVEL
+        ));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
