@@ -1,6 +1,6 @@
-package io.autoinvestor.application.RegisterUserUseCase;
+package io.autoinvestor.ui.user;
 
-public record RegisterUserCommand(
+public record RegisterUserRequest(
         String firstName,
         String lastName,
         String email,

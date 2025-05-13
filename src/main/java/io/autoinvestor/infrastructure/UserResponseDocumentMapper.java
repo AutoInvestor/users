@@ -1,6 +1,6 @@
 package io.autoinvestor.infrastructure;
 
-import io.autoinvestor.ui.RequestUser.UserResponse;
+import io.autoinvestor.ui.user.UserResponse;
 import org.springframework.stereotype.Service;
 
 @Service
