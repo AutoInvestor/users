@@ -22,13 +22,15 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserResponse> getUser(
             @RequestHeader(value = "X-User-Id", required = false) String userId,
-            @RequestParam("email") String email
+            @RequestParam(value = "email", required = false) String email
     ) {
         if (userId != null) {
             // TODO: return user by userId
             return ResponseEntity.ok(new UserResponse(userId, null, null, null, null));
+        } if (email != null) {
+            return ResponseEntity.ok(getUserCommandHandler.handle(new GetUserQuery(email)));
         }
-        return ResponseEntity.ok(getUserCommandHandler.handle(new GetUserQuery(email)));
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping
