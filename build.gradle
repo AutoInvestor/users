@@ -28,13 +28,16 @@ dependencies {
 	implementation 'com.google.cloud:spring-cloud-gcp-starter-pubsub'
 	implementation 'org.springframework.integration:spring-integration-core'
 	implementation 'com.google.cloud:google-cloud-pubsub:1.113.7'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs << '-parameters'
+}
 bootBuildImage {
 	imageName = "${System.getenv("DOCKER_NAMESPACE")}/autoinvestor-${rootProject.name}:${System.getenv("DOCKER_IMAGE_VERSION")}"
 	docker {
