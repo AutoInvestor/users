@@ -8,4 +8,5 @@ public interface UsersReadModel {
     void add(UserReadModelDocument document);
 
     UserResponse get(String email);
+    UserResponse getById(String userId);
 }

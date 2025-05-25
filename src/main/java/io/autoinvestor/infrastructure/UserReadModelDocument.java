@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public record UserReadModelDocument(
-        @Id String userId,
+        String userId,
         String email,
         String firstName,
         String lastName,

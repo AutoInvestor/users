@@ -28,4 +28,9 @@ public class UserReadModelInMemory implements UsersReadModel {
                 .map(UserResponseDocumentMapper::map)
                 .orElse(null);
     }
+
+    @Override
+    public UserResponse getById(String userId) {
+        return null;
+    }
 }

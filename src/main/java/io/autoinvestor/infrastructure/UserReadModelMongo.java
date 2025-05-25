@@ -32,4 +32,14 @@ public class UserReadModelMongo implements UsersReadModel {
         }
         return UserResponseDocumentMapper.map(document);
     }
+
+    @Override
+    public UserResponse getById(String userId) {
+        Query query = new Query(Criteria.where("userId").is(userId));
+        UserReadModelDocument document = mongoTemplate.findOne(query,  UserReadModelDocument.class, "users");
+        if (document == null) {
+            return null;
+        }
+        return UserResponseDocumentMapper.map(document);
+    }
 }
