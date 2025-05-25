@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
 
-@Document(collection = "userCreated")
+@Document(collection = "events")
 public record UserCreatedEventDocument(
         @Id String id,
         String aggregateId,
