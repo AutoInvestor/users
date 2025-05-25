@@ -2,6 +2,8 @@ package io.autoinvestor.ui.user;
 
 import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommand;
 import io.autoinvestor.application.RegisterUserUseCase.RegisterUserCommandHandler;
+import io.autoinvestor.application.RequestUserById.GetUserByIdCommandHandler;
+import io.autoinvestor.application.RequestUserById.GetUserByIdQuery;
 import io.autoinvestor.application.RequestUserUseCase.GetUserQuery;
 import io.autoinvestor.application.RequestUserUseCase.GetUserQueryHandler;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class UserController {
     private static final Integer DEFAULT_RISK_LEVEL = 1;
 
     private final GetUserQueryHandler getUserCommandHandler;
+    private final GetUserByIdCommandHandler getUserByIdCommandHandler;
     private final RegisterUserCommandHandler registerUserCommandHandler;
 
     @GetMapping
@@ -25,8 +28,7 @@ public class UserController {
             @RequestParam(value = "email", required = false) String email
     ) {
         if (userId != null) {
-            // TODO: return user by userId
-            return ResponseEntity.ok(new UserResponse(userId, null, null, null, null));
+            return ResponseEntity.ok(getUserByIdCommandHandler.handle(new GetUserByIdQuery(userId)));
         } if (email != null) {
             return ResponseEntity.ok(getUserCommandHandler.handle(new GetUserQuery(email)));
         }
