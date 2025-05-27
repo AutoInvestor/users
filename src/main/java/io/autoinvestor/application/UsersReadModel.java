@@ -1,12 +1,10 @@
 package io.autoinvestor.application;
 
-import io.autoinvestor.infrastructure.UserReadModelDocument;
-import io.autoinvestor.ui.user.UserResponse;
+
+import java.util.Optional;
 
 public interface UsersReadModel {
-
-    void add(UserReadModelDocument document);
-
-    UserResponse get(String email);
-    UserResponse getById(String userId);
+    void save(UserDTO user);
+    Optional<UserDTO> get(String email);
+    Optional<UserDTO> getById(String userId);
 }
