@@ -12,7 +12,7 @@ public record UserState(
         Date updatedAt
 ) {
     public static UserState empty() {
-        return new UserState(UserId.empty(), FirstName.empty(), LastName.empty(), UserEmail.empty(), RiskLevel.empty(), new Date(), new Date());
+        return new UserState(UserId.generate(), FirstName.empty(), LastName.empty(), UserEmail.empty(), RiskLevel.empty(), new Date(), new Date());
     }
 
     public UserState withUserCreated(UserWasRegisteredEvent event) {

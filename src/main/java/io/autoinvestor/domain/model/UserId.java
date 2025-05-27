@@ -14,8 +14,4 @@ public class UserId extends Id {
     public static UserId from(String id) {
         return new UserId(id);
     }
-
-    public static UserId empty() {
-        return new UserId("");
-    }
 }
