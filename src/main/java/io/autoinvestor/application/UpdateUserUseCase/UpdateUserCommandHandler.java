@@ -37,9 +37,9 @@ public class UpdateUserCommandHandler {
 
         UserDTO dto = new UserDTO(
                 user.getState().userId().value(),
-                command.getState().userEmail().value,
-                command.getState().firstName().value,
-                command.getState().lastName().value,
+                user.getState().userEmail().value(),
+                user.getState().firstName().value(),
+                user.getState().lastName().value(),
                 command.riskLevel()
         );
         this.readModel.update(dto);
