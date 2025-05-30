@@ -43,11 +43,21 @@ public class User extends EventSourcedEntity {
         return user;
     }
 
+    public void update(String userId, int riskLevel) {
+        this.apply(UserWasUpdatedEvent.with(
+                UserId.from(userId),
+                RiskLevel.from(riskLevel)
+        ));
+    }
+
     @Override
     protected void when(Event<?> event) {
         switch (event.getType()) {
             case UserWasRegisteredEvent.TYPE :
                 whenUserCreated((UserWasRegisteredEvent) event);
+                break;
+            case UserWasUpdatedEvent.TYPE:
+                whenUserUpdated((UserWasUpdatedEvent) event);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown event type");
@@ -60,5 +70,9 @@ public class User extends EventSourcedEntity {
         }
         assert this.state != null;
         this.state = this.state.withUserCreated(event);
+    }
+
+    private void whenUserUpdated(UserWasUpdatedEvent event) {
+        this.state = this.state.withUserDeleted(event);
     }
 }

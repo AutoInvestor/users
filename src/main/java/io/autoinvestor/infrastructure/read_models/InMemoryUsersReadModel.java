@@ -31,4 +31,9 @@ public class InMemoryUsersReadModel implements UsersReadModel {
                 .filter(user -> user.userId().equals(userId))
                 .findFirst();
     }
+
+    @Override
+    public void update(UserDTO dto) {
+
+    }
 }
