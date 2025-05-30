@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.autoinvestor.domain.events.Event;
 import io.autoinvestor.domain.events.EventId;
 import io.autoinvestor.domain.events.EventPayload;
-import io.autoinvestor.domain.model.UserId;
-import io.autoinvestor.domain.model.UserWasRegisteredEvent;
-import io.autoinvestor.domain.model.UserWasRegisteredEventPayload;
+import io.autoinvestor.domain.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -44,6 +42,11 @@ public class EventMapper {
                         json.convertValue(doc.getPayload(), UserWasRegisteredEventPayload.class);
 
                 return UserWasRegisteredEvent.hydrate(id, aggId, payload, occurred, version);
+            }
+            case UserWasUpdatedEvent.TYPE ->  {
+                UserWasUpdatedEventPayload payload =
+                        json.convertValue(doc.getPayload(), UserWasUpdatedEventPayload.class);
+                return UserWasUpdatedEvent.hydrate(id, aggId, payload, occurred, version);
             }
 
             default -> throw new IllegalArgumentException(
