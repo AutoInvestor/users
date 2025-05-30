@@ -25,4 +25,16 @@ public record UserState(
                 event.getOccurredAt(),
                 new Date());
     }
+
+    public UserState withUserDeleted(UserWasUpdatedEvent event) {
+        UserWasUpdatedEventPayload payload = event.getPayload();
+        return new UserState(
+                UserId.from(event.getAggregateId().value()),
+                this.firstName,
+                this.lastName,
+                this.userEmail,
+                RiskLevel.from(payload.riskLevel()),
+                event.getOccurredAt(),
+                new Date());
+    }
 }

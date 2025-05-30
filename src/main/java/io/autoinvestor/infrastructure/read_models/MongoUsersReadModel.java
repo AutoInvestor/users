@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -45,5 +46,13 @@ public class MongoUsersReadModel implements UsersReadModel {
         UserDocument doc = template.findOne(query, UserDocument.class, COLLECTION);
         return Optional.ofNullable(doc)
                 .map(mapper::toDTO);
+    }
+
+    @Override
+    public void update(UserDTO dto) {
+        Query query = new Query(Criteria.where("userId").is(dto.userId()));
+        Update update = new Update()
+                .set("riskLevel", dto.riskLevel());
+        this.template.updateFirst(query, update, UserDocument.class, COLLECTION);
     }
 }

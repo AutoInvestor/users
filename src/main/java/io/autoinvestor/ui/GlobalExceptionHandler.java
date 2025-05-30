@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {RegisterUserController.class, GetUserController.class})
+@RestControllerAdvice(assignableTypes = {RegisterUserController.class, GetUserController.class, UpdateUserController.class})
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicatedException.class)
@@ -61,4 +61,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFound ex) {
         return ErrorResponse.builder().status(HttpStatus.valueOf(404)).message(ex.getMessage()).build();
     }
+
+
 }
