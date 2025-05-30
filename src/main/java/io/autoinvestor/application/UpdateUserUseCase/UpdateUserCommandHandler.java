@@ -26,7 +26,7 @@ public class UpdateUserCommandHandler {
     public void handle (UpdateUserCommand command) {
 
         String userIdToUpdate = String.valueOf(readModel.getById(command.userId())
-                .map(UserDTO::riskLevel)
+                .map(UserDTO::userId)
                 .orElseThrow(() -> UserNotFound.with(command.userId())));
         User user = this.eventStore.get(UserId.from(userIdToUpdate));
         user.update(userIdToUpdate, command.riskLevel());
