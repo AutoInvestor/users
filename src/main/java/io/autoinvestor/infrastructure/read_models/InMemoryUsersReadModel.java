@@ -30,5 +30,12 @@ public class InMemoryUsersReadModel implements UsersReadModel {
     }
 
     @Override
-    public void update(UserDTO dto) {}
+    public void update(UserDTO dto) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).userId().equals(dto.userId())) {
+                users.set(i, dto);
+                return;
+            }
+        }
+    }
 }
