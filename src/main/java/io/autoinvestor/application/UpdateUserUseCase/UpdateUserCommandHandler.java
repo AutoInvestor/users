@@ -9,10 +9,10 @@ import io.autoinvestor.domain.events.EventPublisher;
 import io.autoinvestor.domain.model.User;
 import io.autoinvestor.domain.model.UserId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,14 +22,12 @@ public class UpdateUserCommandHandler {
     private final EventPublisher eventPublisher;
     private final UsersReadModel readModel;
 
-    public void handle(UpdateUserCommand command) {
 
-        String userIdToUpdate =
-                String.valueOf(
-                        readModel
-                                .getById(command.userId())
-                                .map(UserDTO::riskLevel)
-                                .orElseThrow(() -> UserNotFound.with(command.userId())));
+    public void handle (UpdateUserCommand command) {
+
+        String userIdToUpdate = String.valueOf(readModel.getById(command.userId())
+                .map(UserDTO::userId)
+                .orElseThrow(() -> UserNotFound.with(command.userId())));
         User user = this.eventStore.get(UserId.from(userIdToUpdate));
         user.update(userIdToUpdate, command.riskLevel());
 
@@ -37,17 +35,18 @@ public class UpdateUserCommandHandler {
 
         this.eventStore.save(user);
 
-        UserDTO dto =
-                new UserDTO(
-                        user.getState().userId().value(),
-                        user.getState().userEmail().value(),
-                        user.getState().firstName().value(),
-                        user.getState().lastName().value(),
-                        command.riskLevel());
+        UserDTO dto = new UserDTO(
+                user.getState().userId().value(),
+                user.getState().userEmail().value(),
+                user.getState().firstName().value(),
+                user.getState().lastName().value(),
+                command.riskLevel()
+        );
         this.readModel.update(dto);
 
         this.eventPublisher.publish(events);
 
         user.markEventsAsCommitted();
+
     }
 }

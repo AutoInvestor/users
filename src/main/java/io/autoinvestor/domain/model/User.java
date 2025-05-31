@@ -62,10 +62,9 @@ public class User extends EventSourcedEntity {
     }
 
     private void whenUserCreated(UserWasRegisteredEvent event) {
-        if (this.state != null) {
+        if (this.state == null) {
             this.state = UserState.empty();
         }
-        assert this.state != null;
         this.state = this.state.withUserCreated(event);
     }
 
