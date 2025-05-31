@@ -9,15 +9,22 @@ public record UserState(
         UserEmail userEmail,
         RiskLevel riskLevel,
         Date createdAt,
-        Date updatedAt
-) {
+        Date updatedAt) {
     public static UserState empty() {
-        return new UserState(UserId.generate(), FirstName.empty(), LastName.empty(), UserEmail.empty(), RiskLevel.empty(), new Date(), new Date());
+        return new UserState(
+                UserId.generate(),
+                FirstName.empty(),
+                LastName.empty(),
+                UserEmail.empty(),
+                RiskLevel.empty(),
+                new Date(),
+                new Date());
     }
 
     public UserState withUserCreated(UserWasRegisteredEvent event) {
         UserWasRegisteredEventPayload payload = event.getPayload();
-        return new UserState(UserId.from(event.getAggregateId().value()),
+        return new UserState(
+                UserId.from(event.getAggregateId().value()),
                 FirstName.from(payload.firstName()),
                 LastName.from(payload.lastName()),
                 UserEmail.from(payload.email()),

@@ -7,8 +7,7 @@ public class ErrorResponseBuilder {
     private int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
     private String message = "An unexpected error occurred";
 
-    ErrorResponseBuilder() {
-    }
+    ErrorResponseBuilder() {}
 
     public ErrorResponseBuilder status(HttpStatus status) {
         this.status = status.value();

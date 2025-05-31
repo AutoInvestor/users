@@ -1,4 +1,3 @@
 package io.autoinvestor.application.RequestUserById;
 
-public record GetUserByIdQuery(String userId) {
-}
+public record GetUserByIdQuery(String userId) {}

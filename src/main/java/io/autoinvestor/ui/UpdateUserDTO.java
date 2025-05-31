@@ -1,5 +1,3 @@
 package io.autoinvestor.ui;
 
-public record UpdateUserDTO(
-        int riskLevel
-) {}
+public record UpdateUserDTO(int riskLevel) {}

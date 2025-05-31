@@ -21,3 +21,6 @@ jobs:
 
       - name: Build & Test
         run: ./gradlew clean build
+
+      - name: Spotless Check
+        run: ./gradlew spotlessCheck

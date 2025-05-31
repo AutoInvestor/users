@@ -4,13 +4,9 @@ import io.autoinvestor.domain.events.EventPayload;
 
 import java.util.Map;
 
-public record UserWasUpdatedEventPayload(
-        int riskLevel
-) implements EventPayload {
+public record UserWasUpdatedEventPayload(int riskLevel) implements EventPayload {
     @Override
     public Map<String, Object> asMap() {
-        return Map.of(
-                "riskLevel", riskLevel
-        );
+        return Map.of("riskLevel", riskLevel);
     }
 }

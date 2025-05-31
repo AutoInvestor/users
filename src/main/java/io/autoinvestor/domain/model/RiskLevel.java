@@ -1,7 +1,8 @@
 package io.autoinvestor.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.autoinvestor.exceptions.RiskLevelNotValid;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public class RiskLevel {
     private final int riskLevel;

@@ -25,10 +25,8 @@ public class FirstName {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof FirstName that))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof FirstName that)) return false;
         return firstName.equals(that.firstName);
     }
 }

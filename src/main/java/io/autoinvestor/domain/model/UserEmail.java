@@ -1,9 +1,11 @@
 package io.autoinvestor.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.autoinvestor.exceptions.EmailNotValid;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public class UserEmail {
     private final String email;
@@ -13,7 +15,8 @@ public class UserEmail {
     }
 
     private static void validate(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        String emailRegex =
+                "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
