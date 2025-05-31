@@ -31,29 +31,26 @@ public class User extends EventSourcedEntity {
     public static User create(String firstName, String lastName, String email, int riskLevel) {
         User user = User.empty();
 
-        user.apply(UserWasRegisteredEvent.with(
-                user.getState().userId(),
-                FirstName.from(firstName),
-                LastName.from(lastName),
-                UserEmail.from(email),
-                RiskLevel.from(riskLevel),
-                user.version
-        ));
+        user.apply(
+                UserWasRegisteredEvent.with(
+                        user.getState().userId(),
+                        FirstName.from(firstName),
+                        LastName.from(lastName),
+                        UserEmail.from(email),
+                        RiskLevel.from(riskLevel),
+                        user.version));
 
         return user;
     }
 
     public void update(String userId, int riskLevel) {
-        this.apply(UserWasUpdatedEvent.with(
-                UserId.from(userId),
-                RiskLevel.from(riskLevel)
-        ));
+        this.apply(UserWasUpdatedEvent.with(UserId.from(userId), RiskLevel.from(riskLevel)));
     }
 
     @Override
     protected void when(Event<?> event) {
         switch (event.getType()) {
-            case UserWasRegisteredEvent.TYPE :
+            case UserWasRegisteredEvent.TYPE:
                 whenUserCreated((UserWasRegisteredEvent) event);
                 break;
             case UserWasUpdatedEvent.TYPE:

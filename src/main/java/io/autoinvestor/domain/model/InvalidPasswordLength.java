@@ -6,8 +6,13 @@ public class InvalidPasswordLength extends RuntimeException {
     }
 
     public static InvalidPasswordLength with(Integer length, Integer minLength) {
-        String exceptionMessage = "Your current password length of " + length + " is invalid. It "
-                + "should be at least " + minLength + " characters long";
+        String exceptionMessage =
+                "Your current password length of "
+                        + length
+                        + " is invalid. It "
+                        + "should be at least "
+                        + minLength
+                        + " characters long";
         return new InvalidPasswordLength(exceptionMessage);
     }
 }
