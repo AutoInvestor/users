@@ -33,9 +33,7 @@ public class MongoEventStoreRepository implements EventStore {
     @Override
     public void save(User user) {
         List<EventDocument> docs =
-                user.getUncommittedEvents().stream()
-                        .map(mapper::toDocument)
-                        .collect(Collectors.toList());
+                user.getUncommittedEvents().stream().map(mapper::toDocument).toList();
         template.insertAll(docs);
     }
 
